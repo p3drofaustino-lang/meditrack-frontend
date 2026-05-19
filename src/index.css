@@ -1,15 +1,24 @@
 @import url('./vendor/fonts.css');
 
 :root {
-  --color-primary: #2f6fed;
-  --color-primary-dark: #1d5ae0;
+  --color-primary: #2f71e5;
+  --color-primary-dark: #0255e5;
+
+  --color-active: #2f71e5;
+  --color-active-hover: #0255e5;
+  --color-active-disabled: #8cace5;
+  --color-active-overlay: #ffffff;
+
   --color-text: #000000;
-  --color-text-secondary: #9e9e9e;
+  --color-text-secondary: #8b8b8b;
+  --color-text-disabled: #cfcfcf;
+
   --color-background: #f5f7fb;
   --color-white: #ffffff;
-  --color-success: #0cce6b;
-  --color-error: #ff1e1e;
   --color-border: #d9d9d9;
+
+  --color-success: #00d160;
+  --color-error: #ff0000;
 
   --font-main: "Inter", Arial, sans-serif;
 
