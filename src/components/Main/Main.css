@@ -1,7 +1,7 @@
 .main {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 64px 40px 80px;
+  padding: 64px 40px 32px;
 }
 
 .main__hero {
@@ -38,7 +38,7 @@
 
 @media screen and (max-width: 768px) {
   .main {
-    padding: 40px 24px 64px;
+    padding: 40px 24px 32px;
   }
 
   .main__hero {
@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 544px) {
   .main {
-    padding: 24px 16px 48px;
+    padding: 24px 16px 24px;
   }
 
   .main__hero {

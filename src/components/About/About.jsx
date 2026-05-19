@@ -3,12 +3,17 @@ import "./About.css";
 function About() {
   return (
     <section className="about">
-      <h2 className="about__title">About MediTrack</h2>
-      <p className="about__text">
-        MediTrack is a personal medication organization app. It helps users
-        search medication data and, in later phases, save personal medication
-        entries with notes and frequency details.
-      </p>
+      <div className="about__content">
+        <p className="about__label">About MediTrack</p>
+        <h2 className="about__title">
+          A simple way to organize personal medication information.
+        </h2>
+        <p className="about__text">
+          MediTrack helps users search medication data, compare available
+          formulations, and prepare a personal list with notes and frequency
+          details.
+        </p>
+      </div>
     </section>
   );
 }
