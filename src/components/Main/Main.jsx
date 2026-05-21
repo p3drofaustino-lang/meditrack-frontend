@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
@@ -7,17 +7,38 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { searchMedication } from "../../utils/rxnormApi";
 import "./Main.css";
 
+const SEARCH_RESULTS_KEY = "meditrackSearchResults";
+const LAST_QUERY_KEY = "meditrackLastQuery";
+
 function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [medications, setMedications] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [lastQuery, setLastQuery] = useState("");
+
+  useEffect(() => {
+    const savedResults = localStorage.getItem(SEARCH_RESULTS_KEY);
+    const savedQuery = localStorage.getItem(LAST_QUERY_KEY);
+
+    if (savedResults) {
+      setMedications(JSON.parse(savedResults));
+      setHasSearched(true);
+    }
+
+    if (savedQuery) {
+      setLastQuery(savedQuery);
+    }
+  }, []);
 
   function handleSearch(query) {
     setIsLoading(true);
     setHasSearched(true);
     setHasError(false);
     setMedications([]);
+    setLastQuery(query);
+
+    localStorage.setItem(LAST_QUERY_KEY, query);
 
     searchMedication(query)
       .then((data) => {
@@ -28,6 +49,10 @@ function Main() {
           .flatMap((group) => group.conceptProperties);
 
         setMedications(medicationResults);
+        localStorage.setItem(
+          SEARCH_RESULTS_KEY,
+          JSON.stringify(medicationResults)
+        );
       })
       .catch((error) => {
         console.error(error);
@@ -62,7 +87,7 @@ function Main() {
 
       {isNothingFound && <NothingFound />}
       {hasError && !isLoading && <ErrorMessage />}
-      <MedicationList medications={medications} />
+      <MedicationList medications={medications} lastQuery={lastQuery} />
     </main>
   );
 }
