@@ -3,6 +3,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
 import NothingFound from "../NothingFound/NothingFound";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { searchMedication } from "../../utils/rxnormApi";
 import "./Main.css";
 
@@ -10,10 +11,12 @@ function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [medications, setMedications] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   function handleSearch(query) {
     setIsLoading(true);
     setHasSearched(true);
+    setHasError(false);
     setMedications([]);
 
     searchMedication(query)
@@ -28,6 +31,7 @@ function Main() {
       })
       .catch((error) => {
         console.error(error);
+        setHasError(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -35,7 +39,7 @@ function Main() {
   }
 
   const isNothingFound =
-    hasSearched && !isLoading && medications.length === 0;
+    hasSearched && !isLoading && !hasError && medications.length === 0;
 
   return (
     <main className="main">
@@ -57,6 +61,7 @@ function Main() {
       </section>
 
       {isNothingFound && <NothingFound />}
+      {hasError && !isLoading && <ErrorMessage />}
       <MedicationList medications={medications} />
     </main>
   );
