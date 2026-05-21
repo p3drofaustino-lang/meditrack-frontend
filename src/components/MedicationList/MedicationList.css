@@ -14,3 +14,23 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
+
+.medication-list__show-more {
+  display: block;
+  min-width: 160px;
+  margin: 32px auto 0;
+  padding: 14px 24px;
+  border-radius: 999px;
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 700;
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+  transition: color var(--transition-default),
+    background-color var(--transition-default);
+}
+
+.medication-list__show-more:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
