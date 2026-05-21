@@ -2,16 +2,19 @@ import { useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
+import NothingFound from "../NothingFound/NothingFound";
 import { searchMedication } from "../../utils/rxnormApi";
-
 import "./Main.css";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(false);
   const [medications, setMedications] = useState([]);
+  const [hasSearched, setHasSearched] = useState(false);
 
   function handleSearch(query) {
     setIsLoading(true);
+    setHasSearched(true);
+    setMedications([]);
 
     searchMedication(query)
       .then((data) => {
@@ -22,10 +25,17 @@ function Main() {
           .flatMap((group) => group.conceptProperties);
 
         setMedications(medicationResults);
-
-        console.log(medicationResults);
       })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }
+
+  const isNothingFound =
+    hasSearched && !isLoading && medications.length === 0;
 
   return (
     <main className="main">
@@ -45,6 +55,8 @@ function Main() {
           {isLoading && <Preloader />}
         </div>
       </section>
+
+      {isNothingFound && <NothingFound />}
       <MedicationList medications={medications} />
     </main>
   );

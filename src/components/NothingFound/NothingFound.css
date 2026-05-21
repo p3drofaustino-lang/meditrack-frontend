@@ -1,0 +1,38 @@
+.nothing-found {
+  margin-top: 40px;
+  border-radius: 32px;
+  background-color: var(--color-white);
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.nothing-found__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  border-radius: 50%;
+  background-color: var(--color-background);
+  color: var(--color-text-disabled);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.nothing-found__title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.nothing-found__text {
+  max-width: 420px;
+  margin: 16px auto 0;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.5;
+}
