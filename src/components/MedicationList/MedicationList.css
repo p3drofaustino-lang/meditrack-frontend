@@ -34,3 +34,19 @@
   background-color: var(--color-primary);
   color: var(--color-white);
 }
+
+@media screen and (max-width: 1024px) {
+  .medication-list__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .medication-list__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .medication-list__title {
+    font-size: 28px;
+  }
+}
