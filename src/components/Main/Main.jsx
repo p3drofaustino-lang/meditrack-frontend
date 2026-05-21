@@ -1,25 +1,30 @@
 import { useState } from "react";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
+import MedicationList from "../MedicationList/MedicationList";
 import { searchMedication } from "../../utils/rxnormApi";
+
 import "./Main.css";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(false);
+  const [medications, setMedications] = useState([]);
 
   function handleSearch(query) {
     setIsLoading(true);
 
     searchMedication(query)
       .then((data) => {
-        console.log(data);
+        const conceptGroups = data.drugGroup.conceptGroup || [];
+
+        const medicationResults = conceptGroups
+          .filter((group) => group.conceptProperties)
+          .flatMap((group) => group.conceptProperties);
+
+        setMedications(medicationResults);
+
+        console.log(medicationResults);
       })
-      .catch((error) => {
-        console.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
   }
 
   return (
@@ -40,6 +45,7 @@ function Main() {
           {isLoading && <Preloader />}
         </div>
       </section>
+      <MedicationList medications={medications} />
     </main>
   );
 }

@@ -1,0 +1,16 @@
+.medication-list {
+  margin-top: 40px;
+}
+
+.medication-list__title {
+  margin: 0 0 24px;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.medication-list__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
