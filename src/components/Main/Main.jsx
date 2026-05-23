@@ -5,11 +5,9 @@ import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
 import NothingFound from "../NothingFound/NothingFound";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { SEARCH_RESULTS_KEY, LAST_QUERY_KEY, } from "../../utils/constants";
 import { searchMedication } from "../../utils/rxnormApi";
 import "./Main.css";
-
-const SEARCH_RESULTS_KEY = "meditrackSearchResults";
-const LAST_QUERY_KEY = "meditrackLastQuery";
 
 function Main() {
   const [isLoading, setIsLoading] = useState(false);
