@@ -49,6 +49,8 @@ function Main() {
           .flatMap((group) => group.conceptProperties);
 
         setMedications(medicationResults);
+        setHasError(false);
+
         localStorage.setItem(
           SEARCH_RESULTS_KEY,
           JSON.stringify(medicationResults)
@@ -56,7 +58,9 @@ function Main() {
       })
       .catch((error) => {
         console.error(error);
+        setMedications([]);
         setHasError(true);
+        localStorage.removeItem(SEARCH_RESULTS_KEY);
       })
       .finally(() => {
         setIsLoading(false);
@@ -87,7 +91,9 @@ function Main() {
 
       {isNothingFound && <NothingFound />}
       {hasError && !isLoading && <ErrorMessage />}
-      <MedicationList medications={medications} lastQuery={lastQuery} />
+      {!hasError && (
+        <MedicationList medications={medications} lastQuery={lastQuery} />
+      )}
     </main>
   );
 }
