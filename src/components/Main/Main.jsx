@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
@@ -16,6 +17,7 @@ function Main() {
   const [hasSearched, setHasSearched] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [lastQuery, setLastQuery] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const savedResults = localStorage.getItem(SEARCH_RESULTS_KEY);
@@ -32,6 +34,8 @@ function Main() {
   }, []);
 
   function handleSearch(query) {
+    navigate("/search");
+
     setIsLoading(true);
     setHasSearched(true);
     setHasError(false);

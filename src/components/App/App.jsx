@@ -21,10 +21,7 @@ function App() {
           }
         />
 
-        <Route
-          path="/search"
-          element={<Main />}
-        />
+        <Route path="/search" element={<Main />} />
       </Routes>
 
       <Footer />
