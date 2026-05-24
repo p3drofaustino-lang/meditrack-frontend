@@ -5,6 +5,7 @@ import Main from "../Main/Main";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
 
   function handleCloseModal() {
     setActiveModal("");
+  }
+
+  function handleRegisterClick() {
+    setActiveModal("register");
   }
 
   useEffect(() => {
@@ -38,7 +43,10 @@ function App() {
 
   return (
     <div className="page">
-      <Header onLoginClick={handleLoginClick} />
+      <Header
+        onLoginClick={handleLoginClick}
+        onRegisterClick={handleRegisterClick}
+      />
 
       <Routes>
         <Route
@@ -56,6 +64,11 @@ function App() {
 
       <LoginModal
         isOpen={activeModal === "login"}
+        onClose={handleCloseModal}
+      />
+
+      <RegisterModal
+        isOpen={activeModal === "register"}
         onClose={handleCloseModal}
       />
 
