@@ -1,16 +1,62 @@
-# React + Vite
+# MediTrack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MediTrack is a React web application for personal medication organization. Users can search medication data using the RxNorm API, compare available formulations, and view structured medication results.
 
-Currently, two official plugins are available:
+This project was built as part of the TripleTen final project.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Search medications by name or active ingredient
+- Display medication results from the RxNorm API
+- Show three results initially
+- Load more results with a "Show more" button
+- Display a preloader while data is loading
+- Display a "Nothing found" message when no results are returned
+- Display an error message if the API request fails
+- Save the latest search results in localStorage
+- Login and registration modals
+- Responsive layout for desktop, tablet, and mobile
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies
 
-## Expanding the ESLint configuration
+- React
+- Vite
+- JavaScript
+- CSS
+- React Router
+- RxNorm API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## API
+
+This project uses the RxNorm API:
+
+```txt
+https://rxnav.nlm.nih.gov/REST/drugs.json?name=ibuprofen
+
+Installation
+
+Clone the repository:
+
+git clone git@github.com:p3drofaustino-lang/meditrack-frontend.git
+
+Navigate to the project folder:
+
+cd meditrack-frontend
+
+Install dependencies:
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+Build the project:
+
+npm run build
+
+Project Status:
+
+Frontend stage completed for TripleTen review.
+
+Future development will include a custom backend for authentication and saving personal medication lists.
