@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { getCurrentUser } from "../../utils/auth";
+
 import "./App.css";
 
 function App() {
   const [activeModal, setActiveModal] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   function handleLoginClick() {
     setActiveModal("login");
@@ -21,6 +28,12 @@ function App() {
 
   function handleRegisterClick() {
     setActiveModal("register");
+  }
+
+  function handleLogout() {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser(null);
   }
 
   useEffect(() => {
@@ -41,39 +54,66 @@ function App() {
     };
   }, [activeModal]);
 
-  return (
-    <div className="page">
-      <Header
-        onLoginClick={handleLoginClick}
-        onRegisterClick={handleRegisterClick}
-      />
+  useEffect(() => {
+    const token = localStorage.getItem("jwt");
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Main />
-              <About />
-            </>
-          }
+    if (!token) {
+      return;
+    }
+
+    getCurrentUser(token)
+      .then((userData) => {
+        setCurrentUser(userData);
+        setIsLoggedIn(true);
+      })
+      .catch((err) => {
+        console.error(err);
+        localStorage.removeItem("jwt");
+        setCurrentUser(null);
+        setIsLoggedIn(false);
+      });
+  }, []);
+
+  return (
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header
+          isLoggedIn={isLoggedIn}
+          onLoginClick={handleLoginClick}
+          onRegisterClick={handleRegisterClick}
+          onLogout={handleLogout}
         />
 
-        <Route path="/search" element={<Main />} />
-      </Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Main />
+                <About />
+              </>
+            }
+          />
 
-      <LoginModal
-        isOpen={activeModal === "login"}
-        onClose={handleCloseModal}
-      />
+          <Route path="/search" element={<Main />} />
+        </Routes>
 
-      <RegisterModal
-        isOpen={activeModal === "register"}
-        onClose={handleCloseModal}
-      />
+        <LoginModal
+          isOpen={activeModal === "login"}
+          onClose={handleCloseModal}
+          setIsLoggedIn={setIsLoggedIn}
+          setCurrentUser={setCurrentUser}
+        />
 
-      <Footer />
-    </div>
+        <RegisterModal
+          isOpen={activeModal === "register"}
+          onClose={handleCloseModal}
+          onLoginClick={handleLoginClick}
+        />
+
+        <Footer />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
