@@ -32,6 +32,13 @@
   opacity: 1;
 }
 
+.navigation__user {
+  margin: 0;
+  color: var(--text-color, #000);
+  font-size: 16px;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 544px) {
   .navigation {
     width: 100%;

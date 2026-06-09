@@ -30,7 +30,7 @@ function App() {
     setActiveModal("register");
   }
 
-  function handleLogout() {
+  function handleSignOut() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
@@ -81,7 +81,7 @@ function App() {
           isLoggedIn={isLoggedIn}
           onLoginClick={handleLoginClick}
           onRegisterClick={handleRegisterClick}
-          onLogout={handleLogout}
+          onSignOut={handleSignOut}
         />
 
         <Routes>

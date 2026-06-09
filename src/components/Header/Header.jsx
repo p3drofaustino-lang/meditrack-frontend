@@ -1,7 +1,7 @@
 import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
-function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
+function Header({ isLoggedIn, onLoginClick, onRegisterClick, onSignOut }) {
   return (
     <header className="header">
       <p className="header__logo">MediTrack</p>
@@ -10,7 +10,7 @@ function Header({ isLoggedIn, onLoginClick, onRegisterClick, onLogout }) {
         isLoggedIn={isLoggedIn}
         onLoginClick={onLoginClick}
         onRegisterClick={onRegisterClick}
-        onLogout={onLogout}
+        onSignOut={onSignOut}
       />
     </header>
   );
