@@ -5,6 +5,8 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import About from "../About/About";
 import Footer from "../Footer/Footer";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import SavedMedications from "../SavedMedications/SavedMedications";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 
@@ -17,17 +19,18 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   function handleLoginClick() {
     setActiveModal("login");
   }
 
-  function handleCloseModal() {
-    setActiveModal("");
-  }
-
   function handleRegisterClick() {
     setActiveModal("register");
+  }
+
+  function handleCloseModal() {
+    setActiveModal("");
   }
 
   function handleSignOut() {
@@ -58,6 +61,7 @@ function App() {
     const token = localStorage.getItem("jwt");
 
     if (!token) {
+      setIsAuthChecked(true);
       return;
     }
 
@@ -71,6 +75,9 @@ function App() {
         localStorage.removeItem("jwt");
         setCurrentUser(null);
         setIsLoggedIn(false);
+      })
+      .finally(() => {
+        setIsAuthChecked(true);
       });
   }, []);
 
@@ -96,6 +103,18 @@ function App() {
           />
 
           <Route path="/search" element={<Main />} />
+
+          <Route
+            path="/saved-medications"
+            element={
+              <ProtectedRoute
+                isLoggedIn={isLoggedIn}
+                isAuthChecked={isAuthChecked}
+              >
+                <SavedMedications />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
 
         <LoginModal
