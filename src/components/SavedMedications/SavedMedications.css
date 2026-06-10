@@ -1,0 +1,50 @@
+.saved-medications {
+  padding: 80px 104px;
+  background-color: var(--color-background);
+  min-height: calc(100vh - 160px);
+}
+
+.saved-medications__container {
+  max-width: 1232px;
+  margin: 0 auto;
+}
+
+.saved-medications__title {
+  margin: 0 0 32px;
+  color: var(--color-text);
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.saved-medications__empty {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+@media screen and (max-width: 1024px) {
+  .saved-medications {
+    padding: 64px 40px;
+  }
+
+  .saved-medications__title {
+    font-size: 36px;
+  }
+}
+
+@media screen and (max-width: 544px) {
+  .saved-medications {
+    padding: 48px 16px;
+  }
+
+  .saved-medications__title {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+
+  .saved-medications__empty {
+    font-size: 16px;
+  }
+}

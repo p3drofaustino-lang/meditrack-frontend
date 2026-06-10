@@ -1,14 +1,17 @@
 import MedicationCard from "../MedicationCard/MedicationCard";
 import "../MedicationList/MedicationList.css";
+import "./SavedMedications.css";
 
 function SavedMedications({ savedMedications, onDeleteMedication }) {
   return (
     <main className="saved-medications">
-      <section className="medication-list">
-        <h1 className="medication-list__title">Saved Medications</h1>
+      <section className="saved-medications__container">
+        <h1 className="saved-medications__title">Saved Medications</h1>
 
         {!savedMedications.length ? (
-          <p>You have no saved medications yet.</p>
+          <p className="saved-medications__empty">
+            You have no saved medications yet.
+          </p>
         ) : (
           <div className="medication-list__grid">
             {savedMedications.map((medication) => (
