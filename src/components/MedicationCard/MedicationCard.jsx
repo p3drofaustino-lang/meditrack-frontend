@@ -1,6 +1,19 @@
 import "./MedicationCard.css";
 
-function MedicationCard({ medication }) {
+function MedicationCard({
+  medication,
+  onSaveMedication,
+  onDeleteMedication,
+  isSaved = false,
+}) {
+  function handleSaveClick() {
+    onSaveMedication(medication);
+  }
+
+  function handleDeleteClick() {
+    onDeleteMedication(medication._id);
+  }
+
   return (
     <article className="medication-card">
       <span className="medication-card__badge">{medication.tty}</span>
@@ -22,9 +35,23 @@ function MedicationCard({ medication }) {
         <p className="medication-card__text">{medication.rxcui}</p>
       </div>
 
-      <button className="medication-card__button" type="button">
-        Save
-      </button>
+      {isSaved ? (
+        <button
+          className="medication-card__button"
+          type="button"
+          onClick={handleDeleteClick}
+        >
+          Remove
+        </button>
+      ) : (
+        <button
+          className="medication-card__button"
+          type="button"
+          onClick={handleSaveClick}
+        >
+          Save
+        </button>
+      )}
     </article>
   );
 }

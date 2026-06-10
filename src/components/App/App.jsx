@@ -12,6 +12,11 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { getCurrentUser } from "../../utils/auth";
+import {
+  getSavedMedications,
+  saveMedication,
+  deleteMedication,
+} from "../../utils/MainApi";
 
 import "./App.css";
 
@@ -20,6 +25,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const [savedMedications, setSavedMedications] = useState([]);
 
   function handleLoginClick() {
     setActiveModal("login");
@@ -37,6 +43,56 @@ function App() {
     localStorage.removeItem("jwt");
     setIsLoggedIn(false);
     setCurrentUser(null);
+    setSavedMedications([]);
+  }
+
+  function handleSaveMedication(medication) {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      handleLoginClick();
+      return;
+    }
+
+    saveMedication(token, {
+      keyword: medication.name,
+      name: medication.name,
+      synonym: medication.synonym || "",
+      tty: medication.tty,
+      rxcui: medication.rxcui,
+      notes: "",
+      frequency: "",
+    })
+      .then((savedMedication) => {
+        setSavedMedications((currentMedications) => [
+          savedMedication,
+          ...currentMedications,
+        ]);
+      })
+      .catch((err) => {
+        console.error("Erro ao guardar medicamento:", err);
+      });
+  }
+
+  function handleDeleteMedication(medicationId) {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      handleLoginClick();
+      return;
+    }
+
+    deleteMedication(token, medicationId)
+      .then(() => {
+        setSavedMedications((currentMedications) =>
+          currentMedications.filter(
+            (medication) => medication._id !== medicationId
+          )
+        );
+      })
+      .catch((err) => {
+        console.error("Erro ao remover medicamento:", err);
+      });
   }
 
   useEffect(() => {
@@ -69,12 +125,18 @@ function App() {
       .then((userData) => {
         setCurrentUser(userData);
         setIsLoggedIn(true);
+
+        return getSavedMedications(token);
+      })
+      .then((medications) => {
+        setSavedMedications(medications);
       })
       .catch((err) => {
         console.error(err);
         localStorage.removeItem("jwt");
         setCurrentUser(null);
         setIsLoggedIn(false);
+        setSavedMedications([]);
       })
       .finally(() => {
         setIsAuthChecked(true);
@@ -96,13 +158,26 @@ function App() {
             path="/"
             element={
               <>
-                <Main />
+                <Main
+                  savedMedications={savedMedications}
+                  onSaveMedication={handleSaveMedication}
+                  onDeleteMedication={handleDeleteMedication}
+                />
                 <About />
               </>
             }
           />
 
-          <Route path="/search" element={<Main />} />
+          <Route
+            path="/search"
+            element={
+              <Main
+                savedMedications={savedMedications}
+                onSaveMedication={handleSaveMedication}
+                onDeleteMedication={handleDeleteMedication}
+              />
+            }
+          />
 
           <Route
             path="/saved-medications"
@@ -111,7 +186,10 @@ function App() {
                 isLoggedIn={isLoggedIn}
                 isAuthChecked={isAuthChecked}
               >
-                <SavedMedications />
+                <SavedMedications
+                  savedMedications={savedMedications}
+                  onDeleteMedication={handleDeleteMedication}
+                />
               </ProtectedRoute>
             }
           />

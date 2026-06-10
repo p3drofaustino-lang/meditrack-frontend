@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import SearchForm from "../SearchForm/SearchForm";
 import Preloader from "../Preloader/Preloader";
 import MedicationList from "../MedicationList/MedicationList";
 import NothingFound from "../NothingFound/NothingFound";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { SEARCH_RESULTS_KEY, LAST_QUERY_KEY, } from "../../utils/constants";
+
+import { SEARCH_RESULTS_KEY, LAST_QUERY_KEY } from "../../utils/constants";
 import { searchMedication } from "../../utils/rxnormApi";
+
 import "./Main.css";
 
-function Main() {
+function Main({ savedMedications, onSaveMedication, onDeleteMedication }) {
   const [isLoading, setIsLoading] = useState(false);
   const [medications, setMedications] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
@@ -94,7 +97,12 @@ function Main() {
       {isNothingFound && <NothingFound />}
       {hasError && !isLoading && <ErrorMessage />}
       {!hasError && (
-        <MedicationList medications={medications} lastQuery={lastQuery} />
+        <MedicationList
+          medications={medications}
+          savedMedications={savedMedications}
+          onSaveMedication={onSaveMedication}
+          onDeleteMedication={onDeleteMedication}
+        />
       )}
     </main>
   );

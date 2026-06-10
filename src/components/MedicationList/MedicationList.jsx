@@ -5,7 +5,12 @@ import "./MedicationList.css";
 const INITIAL_VISIBLE_CARDS = 3;
 const CARDS_TO_ADD = 3;
 
-function MedicationList({ medications }) {
+function MedicationList({
+  medications,
+  savedMedications,
+  onSaveMedication,
+  onDeleteMedication,
+}) {
   const [visibleCards, setVisibleCards] = useState(INITIAL_VISIBLE_CARDS);
 
   useEffect(() => {
@@ -20,8 +25,8 @@ function MedicationList({ medications }) {
   const hasMoreCards = visibleCards < medications.length;
 
   function handleShowMore() {
-    setVisibleCards((currentVisibleCards) =>
-      currentVisibleCards + CARDS_TO_ADD
+    setVisibleCards(
+      (currentVisibleCards) => currentVisibleCards + CARDS_TO_ADD
     );
   }
 
@@ -31,7 +36,15 @@ function MedicationList({ medications }) {
 
       <div className="medication-list__grid">
         {visibleMedications.map((medication) => (
-          <MedicationCard key={medication.rxcui} medication={medication} />
+          <MedicationCard
+            key={medication.rxcui}
+            medication={medication}
+            onSaveMedication={onSaveMedication}
+            onDeleteMedication={onDeleteMedication}
+            isSaved={savedMedications.some(
+              (savedMedication) => savedMedication.rxcui === medication.rxcui
+            )}
+          />
         ))}
       </div>
 
