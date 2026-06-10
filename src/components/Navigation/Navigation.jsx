@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import "./Navigation.css";
 
@@ -9,6 +10,10 @@ function Navigation({ isLoggedIn, onLoginClick, onRegisterClick, onSignOut }) {
     <nav className="navigation">
       {isLoggedIn ? (
         <>
+          <Link className="navigation__link" to="/saved-medications">
+            Saved Medications
+          </Link>
+
           <p className="navigation__user">
             {currentUser?.name || currentUser?.email}
           </p>

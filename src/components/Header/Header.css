@@ -13,6 +13,12 @@
   font-size: 24px;
   font-weight: 900;
   line-height: 1.2;
+  text-decoration: none;
+  transition: opacity var(--transition-default);
+}
+
+.header__logo:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

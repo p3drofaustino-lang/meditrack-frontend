@@ -1,10 +1,13 @@
+import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import "./Header.css";
 
 function Header({ isLoggedIn, onLoginClick, onRegisterClick, onSignOut }) {
   return (
     <header className="header">
-      <p className="header__logo">MediTrack</p>
+      <Link className="header__logo" to="/">
+        MediTrack
+      </Link>
 
       <Navigation
         isLoggedIn={isLoggedIn}
