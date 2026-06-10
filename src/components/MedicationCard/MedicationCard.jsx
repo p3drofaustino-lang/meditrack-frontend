@@ -2,6 +2,7 @@ import "./MedicationCard.css";
 
 function MedicationCard({
   medication,
+  savedMedication,
   onSaveMedication,
   onDeleteMedication,
   isSaved = false,
@@ -11,7 +12,8 @@ function MedicationCard({
   }
 
   function handleDeleteClick() {
-    onDeleteMedication(medication._id);
+    const medicationId = savedMedication?._id || medication._id;
+    onDeleteMedication(medicationId);
   }
 
   return (

@@ -54,6 +54,15 @@ function App() {
       return;
     }
 
+    const isAlreadySaved = savedMedications.some(
+      (savedMedication) =>
+        String(savedMedication.rxcui) === String(medication.rxcui)
+    );
+
+    if (isAlreadySaved) {
+      return;
+    }
+
     saveMedication(token, {
       keyword: medication.name,
       name: medication.name,

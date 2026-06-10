@@ -35,17 +35,23 @@ function MedicationList({
       <h2 className="medication-list__title">Search results</h2>
 
       <div className="medication-list__grid">
-        {visibleMedications.map((medication) => (
-          <MedicationCard
-            key={medication.rxcui}
-            medication={medication}
-            onSaveMedication={onSaveMedication}
-            onDeleteMedication={onDeleteMedication}
-            isSaved={savedMedications.some(
-              (savedMedication) => savedMedication.rxcui === medication.rxcui
-            )}
-          />
-        ))}
+        {visibleMedications.map((medication) => {
+          const savedMedication = savedMedications.find(
+            (currentSavedMedication) =>
+              currentSavedMedication.rxcui === medication.rxcui
+          );
+
+          return (
+            <MedicationCard
+              key={medication.rxcui}
+              medication={medication}
+              savedMedication={savedMedication}
+              onSaveMedication={onSaveMedication}
+              onDeleteMedication={onDeleteMedication}
+              isSaved={Boolean(savedMedication)}
+            />
+          );
+        })}
       </div>
 
       {hasMoreCards && (
