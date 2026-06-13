@@ -3,7 +3,11 @@ import MedicationCard from "../MedicationCard/MedicationCard";
 import "../MedicationList/MedicationList.css";
 import "./SavedMedications.css";
 
-function SavedMedications({ savedMedications, onDeleteMedication }) {
+function SavedMedications({
+  savedMedications,
+  onUpdateMedication,
+  onDeleteMedication,
+}) {
   return (
     <main className="saved-medications">
       <section className="saved-medications__container">
@@ -35,6 +39,8 @@ function SavedMedications({ savedMedications, onDeleteMedication }) {
                 key={medication._id}
                 medication={medication}
                 isSaved
+                canEdit
+                onUpdateMedication={onUpdateMedication}
                 onDeleteMedication={onDeleteMedication}
               />
             ))}

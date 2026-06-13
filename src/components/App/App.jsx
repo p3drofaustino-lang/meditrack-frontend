@@ -15,6 +15,7 @@ import { getCurrentUser } from "../../utils/auth";
 import {
   getSavedMedications,
   saveMedication,
+  updateMedication,
   deleteMedication,
 } from "../../utils/MainApi";
 
@@ -80,6 +81,27 @@ function App() {
       })
       .catch((err) => {
         console.error("Erro ao guardar medicamento:", err);
+      });
+  }
+
+  function handleUpdateMedication(medicationId, data) {
+    const token = localStorage.getItem("jwt");
+
+    if (!token) {
+      handleLoginClick();
+      return;
+    }
+
+    updateMedication(token, medicationId, data)
+      .then((updatedMedication) => {
+        setSavedMedications((currentMedications) =>
+          currentMedications.map((medication) =>
+            medication._id === medicationId ? updatedMedication : medication
+          )
+        );
+      })
+      .catch((err) => {
+        console.error("Erro ao atualizar medicamento:", err);
       });
   }
 
@@ -197,6 +219,7 @@ function App() {
               >
                 <SavedMedications
                   savedMedications={savedMedications}
+                  onUpdateMedication={handleUpdateMedication}
                   onDeleteMedication={handleDeleteMedication}
                 />
               </ProtectedRoute>

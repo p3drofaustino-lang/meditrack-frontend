@@ -71,3 +71,62 @@
 .medication-card__button:hover {
   background-color: var(--color-primary-dark);
 }
+
+.medication-card__edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.medication-card__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.medication-card__input,
+.medication-card__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: var(--color-text);
+  font-size: 16px;
+  line-height: 1.4;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--transition-default),
+    box-shadow var(--transition-default);
+}
+
+.medication-card__input {
+  min-height: 48px;
+}
+
+.medication-card__textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.medication-card__input:focus,
+.medication-card__textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(47, 113, 229, 0.12);
+}
+
+.medication-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.medication-card__button_type_secondary {
+  background-color: transparent;
+  color: var(--color-primary);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.medication-card__button_type_secondary:hover {
+  background-color: rgba(47, 111, 237, 0.08);
+}

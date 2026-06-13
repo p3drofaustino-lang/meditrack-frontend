@@ -55,6 +55,17 @@ export function saveMedication(token, medication) {
   }).then(checkResponse);
 }
 
+export function updateMedication(token, medicationId, data) {
+  return fetch(`${BASE_URL}/medications/${medicationId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  }).then(checkResponse);
+}
+
 export function deleteMedication(token, medicationId) {
   return fetch(`${BASE_URL}/medications/${medicationId}`, {
     method: "DELETE",
