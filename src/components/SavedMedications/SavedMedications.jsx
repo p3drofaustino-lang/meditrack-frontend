@@ -9,6 +9,10 @@ function SavedMedications({ savedMedications, onDeleteMedication }) {
       <section className="saved-medications__container">
         <h1 className="saved-medications__title">Saved Medications</h1>
 
+        <p className="saved-medications__subtitle">
+          Review and manage the medications you have saved.
+        </p>
+
         {!savedMedications.length ? (
           <div className="saved-medications__empty">
             <h2 className="saved-medications__empty-title">

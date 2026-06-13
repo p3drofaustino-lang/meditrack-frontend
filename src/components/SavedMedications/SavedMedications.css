@@ -17,6 +17,14 @@
   font-weight: 700;
 }
 
+.saved-medications__subtitle {
+  max-width: 640px;
+  margin: -16px 0 32px;
+  color: var(--color-text-secondary);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
 .saved-medications__empty {
   max-width: 520px;
   border: 1px solid var(--color-border);
@@ -68,6 +76,10 @@
   .saved-medications__title {
     font-size: 36px;
   }
+
+  .saved-medications__subtitle {
+    font-size: 17px;
+  }
 }
 
 @media screen and (max-width: 544px) {
@@ -78,6 +90,11 @@
   .saved-medications__title {
     margin-bottom: 24px;
     font-size: 32px;
+  }
+
+  .saved-medications__subtitle {
+    margin-bottom: 24px;
+    font-size: 16px;
   }
 
   .saved-medications__empty {
