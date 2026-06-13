@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { register } from "../../utils/auth";
 
@@ -9,33 +9,69 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const redirectTimeoutRef = useRef(null);
+
+  function resetForm() {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setSuccessMessage("");
+    setErrorMessage("");
+  }
+
+  function handleClose() {
+    if (redirectTimeoutRef.current) {
+      clearTimeout(redirectTimeoutRef.current);
+    }
+
+    resetForm();
+    onClose();
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
 
     setSuccessMessage("");
     setErrorMessage("");
+    setIsSubmitting(true);
 
     register({ name, email, password })
       .then(() => {
-        setSuccessMessage("Account created successfully.");
+        setSuccessMessage("Account created successfully. You can now log in.");
 
         setName("");
         setEmail("");
         setPassword("");
 
-        setTimeout(() => {
+        redirectTimeoutRef.current = setTimeout(() => {
+          resetForm();
           onLoginClick();
         }, 1000);
       })
       .catch((err) => {
         console.error("Erro ao criar conta:", err);
-        setErrorMessage("Could not create account. Please check your data.");
+
+        if (err.status === 409) {
+          setErrorMessage("This email is already registered.");
+          return;
+        }
+
+        if (err.status === 400) {
+          setErrorMessage("Please check your name, email, and password.");
+          return;
+        }
+
+        setErrorMessage("Could not create account. Please try again later.");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   }
 
   return (
-    <ModalWithForm title="Sign Up" isOpen={isOpen} onClose={onClose}>
+    <ModalWithForm title="Sign Up" isOpen={isOpen} onClose={handleClose}>
       <form className="modal__form" onSubmit={handleSubmit}>
         <input
           className="modal__input"
@@ -79,8 +115,8 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
           </p>
         )}
 
-        <button className="modal__submit" type="submit">
-          Sign Up
+        <button className="modal__submit" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Creating account..." : "Sign Up"}
         </button>
       </form>
     </ModalWithForm>

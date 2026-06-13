@@ -5,14 +5,12 @@ function checkResponse(res) {
     return res.json();
   }
 
-  return res
-    .json()
-    .then((errorData) => {
-      return Promise.reject(errorData.message || `Erro: ${res.status}`);
+  return res.json().then((errorData) =>
+    Promise.reject({
+      status: res.status,
+      message: errorData.message || `Erro: ${res.status}`,
     })
-    .catch(() => {
-      return Promise.reject(`Erro: ${res.status}`);
-    });
+  );
 }
 
 export function register({ name, email, password }) {
