@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiBookmark, FiTrash2, FiEdit2, FiCheck, FiX } from "react-icons/fi";
 import "./MedicationCard.css";
 
 function MedicationCard({
@@ -116,6 +117,7 @@ function MedicationCard({
 
           <div className="medication-card__actions">
             <button className="medication-card__button" type="submit">
+              <FiCheck className="medication-card__button-icon" />
               Save changes
             </button>
 
@@ -124,6 +126,7 @@ function MedicationCard({
               type="button"
               onClick={handleCancelEdit}
             >
+              <FiX className="medication-card__button-icon" />
               Cancel
             </button>
           </div>
@@ -139,6 +142,7 @@ function MedicationCard({
                 type="button"
                 onClick={handleEditClick}
               >
+                <FiEdit2 className="medication-card__button-icon" />
                 Edit
               </button>
             )}
@@ -148,6 +152,7 @@ function MedicationCard({
               type="button"
               onClick={handleDeleteClick}
             >
+              <FiTrash2 className="medication-card__button-icon" />
               Remove
             </button>
           </div>
@@ -157,6 +162,7 @@ function MedicationCard({
             type="button"
             onClick={handleSaveClick}
           >
+            <FiBookmark className="medication-card__button-icon" />
             Save
           </button>
         ))}

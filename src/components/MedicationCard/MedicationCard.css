@@ -57,8 +57,11 @@
 }
 
 .medication-card__button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
   align-self: flex-start;
-  margin-top: auto;
   padding: 12px 24px;
   border-radius: 999px;
   background-color: var(--color-primary);
@@ -70,6 +73,12 @@
 
 .medication-card__button:hover {
   background-color: var(--color-primary-dark);
+}
+
+.medication-card__button-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 .medication-card__edit-form {
@@ -119,6 +128,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  margin-top: auto;
 }
 
 .medication-card__button_type_secondary {
