@@ -27,6 +27,18 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [savedMedications, setSavedMedications] = useState([]);
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackType, setFeedbackType] = useState("");
+
+  function showFeedback(message, type = "success") {
+    setFeedbackMessage(message);
+    setFeedbackType(type);
+
+    setTimeout(() => {
+      setFeedbackMessage("");
+      setFeedbackType("");
+    }, 3000);
+  }
 
   function handleLoginClick() {
     setActiveModal("login");
@@ -61,6 +73,7 @@ function App() {
     );
 
     if (isAlreadySaved) {
+      showFeedback("This medication is already saved.", "error");
       return;
     }
 
@@ -78,9 +91,11 @@ function App() {
           savedMedication,
           ...currentMedications,
         ]);
+        showFeedback("Medication saved.");
       })
       .catch((err) => {
         console.error("Erro ao guardar medicamento:", err);
+        showFeedback("Could not save medication. Please try again.", "error");
       });
   }
 
@@ -99,9 +114,11 @@ function App() {
             medication._id === medicationId ? updatedMedication : medication
           )
         );
+        showFeedback("Medication updated.");
       })
       .catch((err) => {
         console.error("Erro ao atualizar medicamento:", err);
+        showFeedback("Could not update medication. Please try again.", "error");
       });
   }
 
@@ -120,9 +137,11 @@ function App() {
             (medication) => medication._id !== medicationId
           )
         );
+        showFeedback("Medication removed.");
       })
       .catch((err) => {
         console.error("Erro ao remover medicamento:", err);
+        showFeedback("Could not remove medication. Please try again.", "error");
       });
   }
 
@@ -183,6 +202,15 @@ function App() {
           onRegisterClick={handleRegisterClick}
           onSignOut={handleSignOut}
         />
+
+        {feedbackMessage && (
+          <p
+            className={`page__feedback page__feedback_type_${feedbackType}`}
+            role="status"
+          >
+            {feedbackMessage}
+          </p>
+        )}
 
         <Routes>
           <Route

@@ -1,0 +1,35 @@
+.page__feedback {
+  position: fixed;
+  top: 88px;
+  left: 50%;
+  z-index: 20;
+  max-width: 360px;
+  margin: 0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  background-color: var(--color-white);
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateX(-50%);
+}
+
+.page__feedback_type_success {
+  border-left: 4px solid var(--color-success);
+}
+
+.page__feedback_type_error {
+  border-left: 4px solid var(--color-error);
+}
+
+@media screen and (max-width: 544px) {
+  .page__feedback {
+    top: 96px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+    transform: none;
+  }
+}
