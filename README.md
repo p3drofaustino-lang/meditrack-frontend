@@ -97,17 +97,11 @@ npm run build
 
 ## Development Setup
 
-The frontend expects the backend API to be running locally at:
+Live site: https://meditrack.twilightparadox.com
 
-```txt
-http://localhost:3000
-```
+Backend API: https://api.meditrack.twilightparadox.com
 
-The frontend development server runs on:
-
-```txt
-http://localhost:3001
-```
+Backend repository: https://github.com/p3drofaustino-lang/meditrack-backend
 
 ## Main Routes
 
