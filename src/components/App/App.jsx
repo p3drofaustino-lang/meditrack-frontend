@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -29,6 +29,9 @@ function App() {
   const [savedMedications, setSavedMedications] = useState([]);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackType, setFeedbackType] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   function showFeedback(message, type = "success") {
     setFeedbackMessage(message);
@@ -192,6 +195,13 @@ function App() {
         setIsAuthChecked(true);
       });
   }, []);
+
+  useEffect(() => {
+    if (location.state?.openLoginModal) {
+      setActiveModal("login");
+      navigate(location.pathname, { replace: true, state: null });
+    }
+  }, [location.pathname, location.state, navigate]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -6,7 +6,13 @@ function ProtectedRoute({ isLoggedIn, isAuthChecked, children }) {
   }
 
   if (!isLoggedIn) {
-    return <Navigate to="/" replace />;
+    return (
+      <Navigate
+        to="/"
+        replace
+        state={{ openLoginModal: true }}
+      />
+    );
   }
 
   return children;
