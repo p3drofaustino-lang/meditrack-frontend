@@ -20,8 +20,8 @@ function MedicationCard({
   }
 
   function handleDeleteClick() {
-    const medicationId = savedMedication?._id || medication._id;
-    onDeleteMedication(medicationId);
+    const medicationToDelete = savedMedication || medication;
+    onDeleteMedication(medicationToDelete);
   }
 
   function handleEditClick() {

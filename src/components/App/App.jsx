@@ -9,6 +9,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import SavedMedications from "../SavedMedications/SavedMedications";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import ConfirmDeleteModal from "../ConfirmDeleteModal/ConfirmDeleteModal";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { getCurrentUser } from "../../utils/auth";
@@ -27,6 +28,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
   const [savedMedications, setSavedMedications] = useState([]);
+  const [selectedMedication, setSelectedMedication] = useState(null);
   const [feedbackMessage, setFeedbackMessage] = useState("");
   const [feedbackType, setFeedbackType] = useState("");
 
@@ -125,6 +127,19 @@ function App() {
       });
   }
 
+  function handleDeleteMedicationClick(medication) {
+    setSelectedMedication(medication);
+    setActiveModal("confirm-delete");
+  }
+
+  function handleConfirmDeleteMedication() {
+    if (!selectedMedication) {
+      return;
+    }
+
+    handleDeleteMedication(selectedMedication._id);
+  }
+
   function handleDeleteMedication(medicationId) {
     const token = localStorage.getItem("jwt");
 
@@ -141,6 +156,8 @@ function App() {
           )
         );
         showFeedback("Medication removed.");
+        setSelectedMedication(null);
+        handleCloseModal();
       })
       .catch((err) => {
         console.error("Erro ao remover medicamento:", err);
@@ -230,7 +247,7 @@ function App() {
                 <Main
                   savedMedications={savedMedications}
                   onSaveMedication={handleSaveMedication}
-                  onDeleteMedication={handleDeleteMedication}
+                  onDeleteMedication={handleDeleteMedicationClick}
                 />
                 <About />
               </>
@@ -243,7 +260,7 @@ function App() {
               <Main
                 savedMedications={savedMedications}
                 onSaveMedication={handleSaveMedication}
-                onDeleteMedication={handleDeleteMedication}
+                onDeleteMedication={handleDeleteMedicationClick}
               />
             }
           />
@@ -258,7 +275,7 @@ function App() {
                 <SavedMedications
                   savedMedications={savedMedications}
                   onUpdateMedication={handleUpdateMedication}
-                  onDeleteMedication={handleDeleteMedication}
+                  onDeleteMedication={handleDeleteMedicationClick}
                 />
               </ProtectedRoute>
             }
@@ -276,6 +293,13 @@ function App() {
           isOpen={activeModal === "register"}
           onClose={handleCloseModal}
           onLoginClick={handleLoginClick}
+        />
+
+        <ConfirmDeleteModal
+          isOpen={activeModal === "confirm-delete"}
+          medication={selectedMedication}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmDeleteMedication}
         />
 
         <Footer />

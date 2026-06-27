@@ -1,0 +1,95 @@
+.confirm-delete {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.confirm-delete__container {
+  position: relative;
+  width: 100%;
+  max-width: 430px;
+  padding: 32px;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+}
+
+.confirm-delete__close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.confirm-delete__title {
+  margin: 0 0 12px;
+  color: #111827;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.confirm-delete__text {
+  margin: 0 0 24px;
+  color: #4b5563;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.confirm-delete__medication-name {
+  color: #111827;
+  font-weight: 700;
+}
+
+.confirm-delete__actions {
+  display: flex;
+  gap: 12px;
+}
+
+.confirm-delete__button {
+  min-height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.confirm-delete__button_type_danger {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.confirm-delete__button_type_secondary {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.confirm-delete__button:hover,
+.confirm-delete__close:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 544px) {
+  .confirm-delete__container {
+    padding: 28px 20px;
+  }
+
+  .confirm-delete__actions {
+    flex-direction: column;
+  }
+
+  .confirm-delete__button {
+    width: 100%;
+  }
+}
