@@ -1,37 +1,119 @@
 # MediTrack
 
-MediTrack is a full-stack medication search and organization web application. Users can search medication data using the RxNorm API, create an account, save medications to a personal list, and add custom notes or frequency instructions.
+A full-stack medication search and management application built with React, Node.js, Express, MongoDB, and the RxNorm API.
+
+MediTrack allows users to search medication data, create an account, save medications to a personal list, and add custom notes or frequency instructions.
+
+🌐 **Live Demo:** https://meditrack.twilightparadox.com
+⚙️ **Backend Repository:** https://github.com/p3drofaustino-lang/meditrack-backend
 
 This project was developed as the final project for the TripleTen Web Development program.
+
+## Highlights
+
+* Full-stack application built with React and Express
+* RxNorm API integration for medication search
+* JWT authentication and protected routes
+* MongoDB database integration
+* CRUD functionality for saved medications
+* Duplicate medication prevention per user
+* Google Cloud deployment with Nginx
+* Responsive layout for desktop, tablet, and mobile
+
+## Screenshots
+
+### Home Page
+
+![Home Page](./screenshots/home-page.png)
+
+### Medication Search Results
+
+![Medication Search Results](./screenshots/search-results.png)
+
+### Register Modal
+
+![Register Modal](./screenshots/register-modal.png)
+
+### Saved Medications
+
+![Saved Medications](./screenshots/saved-medications.png)
+
+### Delete Confirmation
+
+![Delete Confirmation](./screenshots/delete-confirmation.png)
+
+### Mobile View
+
+![Mobile View](./screenshots/mobile-view.png)
 
 ## Features
 
 * Search medications by name or active ingredient
 * Display structured medication results from the RxNorm API
 * Show initial results with a "Show more" option
+* Register and log in with a personal account
+* Toggle password visibility in authentication forms
 * Save medication search results to a personal account
 * View saved medications on a protected page
 * Add and edit medication notes and frequency instructions
-* Remove medications from the saved list
+* Remove saved medications with a confirmation modal
 * Prevent duplicate saved medications
-* User registration and login
-* JWT-based authentication
-* Protected routes for authenticated users
-* Action feedback messages for save, edit, remove, and duplicate states
+* Display action feedback messages for save, edit, remove, and duplicate states
+* Use protected routes for authenticated users
 * Responsive layout for desktop, tablet, and mobile
 * Clean UI with accessible text labels and action icons
 
 ## Technologies
 
+### Frontend
+
 * React
 * Vite
-* JavaScript
-* CSS
+* JavaScript (ES6+)
+* CSS3
 * React Router
 * React Icons
-* RxNorm API
-* REST API integration
 * localStorage
+
+### Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
+
+### APIs
+
+* RxNorm REST API
+* Custom REST API
+
+### Deployment
+
+* Google Cloud Platform
+* Nginx
+* HTTPS
+* Custom domain
+
+## Architecture
+
+```txt
+React Frontend
+      │
+      ▼
+Custom REST API
+      │
+      ▼
+Express Backend
+      │
+      ▼
+MongoDB Database
+
+RxNorm API
+      ▲
+      │
+Medication Search
+```
 
 ## External API
 
@@ -60,7 +142,7 @@ The backend handles:
 Backend repository:
 
 ```txt
-To be added
+https://github.com/p3drofaustino-lang/meditrack-backend
 ```
 
 ## Installation
@@ -97,11 +179,23 @@ npm run build
 
 ## Development Setup
 
-Live site: https://meditrack.twilightparadox.com
+Live site:
 
-Backend API: https://api.meditrack.twilightparadox.com
+```txt
+https://meditrack.twilightparadox.com
+```
 
-Backend repository: https://github.com/p3drofaustino-lang/meditrack-backend
+Backend API:
+
+```txt
+https://api.meditrack.twilightparadox.com
+```
+
+Backend repository:
+
+```txt
+https://github.com/p3drofaustino-lang/meditrack-backend
+```
 
 ## Main Routes
 
@@ -128,10 +222,6 @@ src/
   utils/
 ```
 
-## Screenshots
-
-Screenshots will be added after final UI review.
-
 ## Project Status
 
 Core frontend functionality is complete:
@@ -141,16 +231,23 @@ Core frontend functionality is complete:
 * Protected saved medications page
 * Save, edit, and remove medication actions
 * Duplicate prevention feedback
+* Delete confirmation modal
+* Password visibility toggle
 * Responsive layout
+* Production deployment
 
-Next steps:
+## Future Improvements
 
-* Add production deployment
-* Add final screenshots
-* Add live demo link
+* Export saved medication lists
+* Share medication lists
+* Add medication reminders
 * Improve accessibility details
-* Add optional export/share functionality for saved medication lists
+* Add language support for Portuguese and Spanish
+* Add more detailed medication information where available
 
 ## Author
 
 Pedro Faustino
+
+* GitHub: https://github.com/p3drofaustino-lang
+* LinkedIn: Add your LinkedIn URL here
