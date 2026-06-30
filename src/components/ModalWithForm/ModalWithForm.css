@@ -77,6 +77,49 @@
   box-shadow: 0 0 0 3px rgba(47, 113, 229, 0.12);
 }
 
+.modal__password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.modal__input_type_password {
+  width: 100%;
+  padding-right: 48px;
+}
+
+.modal__password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 20px;
+  cursor: pointer;
+
+  transition: color var(--transition-default);
+}
+
+.modal__password-toggle:hover {
+  color: var(--color-primary);
+}
+
+.modal__hint {
+  margin: -8px 0 0;
+  color: var(--color-text-secondary);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
 .modal__submit {
   margin-top: 8px;
   height: 52px;

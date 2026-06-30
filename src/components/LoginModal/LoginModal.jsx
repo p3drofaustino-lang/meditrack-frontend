@@ -1,10 +1,14 @@
 import { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { login, getCurrentUser } from "../../utils/auth";
 
 function LoginModal({ isOpen, onClose, setIsLoggedIn, setCurrentUser }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,6 +26,10 @@ function LoginModal({ isOpen, onClose, setIsLoggedIn, setCurrentUser }) {
     setPassword("");
     setErrorMessage("");
     onClose();
+  }
+
+  function handlePasswordVisibilityToggle() {
+    setIsPasswordVisible((currentValue) => !currentValue);
   }
 
   function handleSubmit(event) {
@@ -63,15 +71,26 @@ function LoginModal({ isOpen, onClose, setIsLoggedIn, setCurrentUser }) {
           required
         />
 
-        <input
-          className="modal__input"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete="current-password"
-          required
-        />
+        <div className="modal__password-wrapper">
+          <input
+            className="modal__input modal__input_type_password"
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={handlePasswordChange}
+            autoComplete="current-password"
+            required
+          />
+
+          <button
+            className="modal__password-toggle"
+            type="button"
+            onClick={handlePasswordVisibilityToggle}
+            aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+          >
+            {isPasswordVisible ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
 
         {errorMessage && <p className="modal__error">{errorMessage}</p>}
 

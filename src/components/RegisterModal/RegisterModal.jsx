@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { register } from "../../utils/auth";
 
@@ -6,6 +8,7 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -28,6 +31,10 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
 
     resetForm();
     onClose();
+  }
+
+  function handlePasswordVisibilityToggle() {
+    setIsPasswordVisible((currentValue) => !currentValue);
   }
 
   function handleSubmit(event) {
@@ -59,7 +66,7 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
         }
 
         if (err.status === 400) {
-          setErrorMessage("Please check your name, email, and password.");
+          setErrorMessage("Please check your name, email, and password. Password must be at least 8 characters.");
           return;
         }
 
@@ -93,15 +100,27 @@ function RegisterModal({ isOpen, onClose, onLoginClick }) {
           required
         />
 
-        <input
-          className="modal__input"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          autoComplete="new-password"
-          required
+      <div className="modal__password-wrapper">
+           <input
+            className="modal__input modal__input_type_password"
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder="Password (minimum 8 characters)"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            autoComplete="new-password"
+            minLength={8}
+            required
         />
+
+        <button
+          className="modal__password-toggle"
+          type="button"
+          onClick={handlePasswordVisibilityToggle}
+          aria-label={isPasswordVisible ? "Hide password" : "Show password"}
+        >
+          {isPasswordVisible ? <FiEyeOff /> : <FiEye />}
+        </button>
+      </div>
 
         {successMessage && (
           <p className="modal__message modal__message_type_success">
