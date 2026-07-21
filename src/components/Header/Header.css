@@ -8,11 +8,8 @@
 }
 
 .header__logo {
-  margin: 0;
-  color: var(--color-primary);
-  font-size: 24px;
-  font-weight: 900;
-  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   transition: opacity var(--transition-default);
 }
@@ -21,13 +18,19 @@
   opacity: 0.8;
 }
 
+.header__logo-image {
+  display: block;
+  width: 200px;
+  height: auto;
+}
+
 @media screen and (max-width: 768px) {
   .header {
     padding: 20px 24px;
   }
 
-  .header__logo {
-    font-size: 22px;
+  .header__logo-image {
+    width: 165px;
   }
 }
 
@@ -37,5 +40,9 @@
     align-items: flex-start;
     gap: 16px;
     padding: 20px 16px;
+  }
+
+  .header__logo-image {
+    width: 150px;
   }
 }
