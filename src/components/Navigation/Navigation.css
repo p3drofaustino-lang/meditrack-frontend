@@ -4,6 +4,19 @@
   gap: 12px;
 }
 
+.navigation__link {
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: none;
+  transition: color var(--transition-default);
+}
+
+.navigation__link:hover {
+  color: var(--color-primary);
+}
+
 .navigation__button {
   min-width: 96px;
   padding: 12px 20px;
@@ -32,9 +45,25 @@
   opacity: 1;
 }
 
+.navigation__user {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 16px;
+  font-weight: 700;
+}
+
 @media screen and (max-width: 544px) {
   .navigation {
     width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .navigation__link {
+    font-size: 14px;
+  }
+
+  .navigation__user {
+    font-size: 14px;
   }
 
   .navigation__button {
